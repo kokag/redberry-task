@@ -3,7 +3,7 @@
 
 import { defineConfig } from "#q-app";
 
-export default defineConfig(ctx => {
+export default defineConfig(() => {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
     // preFetch: true,
@@ -11,7 +11,7 @@ export default defineConfig(ctx => {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: ["i18n", "axios","route-guard"],
+    boot: ["axios","route-guard"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#css
     css: ["app.scss"],
@@ -60,25 +60,6 @@ export default defineConfig(ctx => {
       // to write components with JSX/TSX:
       // https://v2.quasar.dev/quasar-cli-vite/handling-vite#jsx-tsx
       // vueJsx: true,
-
-      vitePlugins: [
-        [
-          "@intlify/unplugin-vue-i18n/vite",
-          {
-            // if you want to use Vue I18n Legacy API, you need to set `compositionOnly: false`
-            // compositionOnly: false,
-
-            // if you want to use named tokens in your Vue I18n messages, such as 'Hello {name}',
-            // you need to set `runtimeOnly: false`
-            // runtimeOnly: false,
-
-            ssr: ctx.mode.ssr || ctx.mode.ssg,
-
-            // you need to set i18n resource including paths !
-            include: [ctx.appPaths.resolve.app("src/i18n")]
-          }
-        ]
-      ]
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file#devserver
@@ -103,7 +84,7 @@ export default defineConfig(ctx => {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['Dialog']
+      plugins: ['Dialog', 'Notify']
     },
 
     // animations: 'all', // --- includes all animations
