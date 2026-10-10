@@ -1,5 +1,5 @@
 import { defineBoot } from "#q-app";
-import useAuthStore from "@/stores/usaAuthStore";
+import useAuthStore from "@/stores/useAuthStore";
 
 export default defineBoot(({ router }) => {
   router.beforeEach(async to => {
