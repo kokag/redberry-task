@@ -3,7 +3,7 @@
     <AppModal title="Sign up" subtitle="Welcome to Kino XII" style="width: 475px">
       <form class="register" novalidate @submit.prevent="submit">
         <div class="register__fields">
-          <!-- Avatar: the row is Figma's design; clicking it opens the hidden q-file's file picker -->
+
           <div class="register__field">
             <button type="button" class="register__avatar" @click="avatarPicker?.pickFiles()">
               <img v-if="avatarPreview" :src="avatarPreview" alt="" class="register__avatar-image" />
@@ -17,7 +17,7 @@
               </span>
             </button>
 
-            <!-- Quasar checks the type and size, and fires @rejected for anything else -->
+
             <q-file
               ref="avatarPicker"
               v-model="registerForm.avatar"
@@ -89,7 +89,7 @@
             </q-input>
           </div>
 
-          <!-- Password and Confirm password sit side by side in Figma -->
+
           <div class="register__row">
             <div class="register__field">
               <label for="register-password" class="register__label">Password</label>
@@ -183,8 +183,8 @@ import { useDialogPluginComponent, type QFile, type QInput } from "quasar";
 import { computed, ref } from "vue";
 import AppIcon from "@/components/ui/AppIcon.vue";
 import AppModal from "@/components/ui/AppModal.vue";
-import useAuthStore, { type RegisterPayload } from "@/stores/usaAuthStore";
-import { emailRules, passes, passwordRules, type Rule } from "@/utils/validation";
+import useAuthStore, { type RegisterPayload } from "@/stores/useAuthStore";
+import { emailRules, passes, passwordRules, toFieldErrors, type Rule } from "@/utils/validation";
 import { useAuthDialog } from "@/components/auth/useAuthDialog";
 
 // Required by $q.dialog({ component }): dialogRef goes on the q-dialog, onDialogOK closes it
@@ -258,10 +258,7 @@ const submit = async () => {
     const data = isAxiosError(error) ? error.response?.data : undefined;
 
     if (data?.errors) {
-      // { username: ["taken"], email: [...] } -> { username: "taken", ... }
-      for (const [field, messages] of Object.entries(data.errors)) {
-        serverErrors.value[field] = (messages as string[])[0] ?? "";
-      }
+      serverErrors.value = toFieldErrors(data.errors);
       if (serverErrors.value.avatar) avatarError.value = serverErrors.value.avatar;
     } else {
       formError.value = data?.message || "Something went wrong. Please try again.";
