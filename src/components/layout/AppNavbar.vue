@@ -59,7 +59,7 @@ import { ref } from "vue";
 import ProfileMenu from "@/components/layout/ProfileMenu.vue";
 import SearchBar from "@/components/layout/SearchBar.vue";
 import AppIcon from "@/components/ui/AppIcon.vue";
-import UserAvatar from "@/components/UserAvatar.vue";
+import UserAvatar from "@/components/layout/UserAvatar.vue";
 import useAuthStore from "@/stores/useAuthStore";
 import { getFirstName } from "@/utils/user";
 import {useAuthDialog} from "@/components/auth/useAuthDialog";

@@ -64,7 +64,7 @@
 import { useRoute, useRouter } from "vue-router";
 import type { User } from "@/api/resources/User";
 import AppIcon from "@/components/ui/AppIcon.vue";
-import UserAvatar from "@/components/UserAvatar.vue";
+import UserAvatar from "@/components/layout/UserAvatar.vue";
 import useAuthStore from "@/stores/useAuthStore";
 import { getFullName } from "@/utils/user";
 
