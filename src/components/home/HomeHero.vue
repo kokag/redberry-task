@@ -56,8 +56,6 @@
         animated
         infinite
         swipeable
-        transition-prev="slide-right"
-        transition-next="slide-left"
         :transition-duration="700"
         class="hero__carousel"
       >
@@ -72,7 +70,7 @@
 
           <div class="hero__content">
             <span class="hero__tag"
-              >Premiere · Week of {{ formatWeek(movie.releaseDate) }}</span
+              >Premiere · Week of {{ formatDay(movie.releaseDate, "D MMM") }}</span
             >
 
             <h1 class="hero__title">{{ movie.title }}</h1>
@@ -104,7 +102,7 @@
                 no-wrap
                 color="primary"
                 class="hero__btn"
-                :to="`/movies/${movie.slug}`"
+                :to="{ name: 'movie', params: { slug: movie.slug } }"
               >
                 <AppIcon name="ticket" class="hero__buy-icon" />
                 Buy tickets
@@ -115,7 +113,7 @@
                 no-caps
                 label="All sessions"
                 class="hero__btn hero__btn--ghost"
-                to="/sessions"
+                :to="{ name: 'sessions' }"
               />
             </div>
           </div>
@@ -168,12 +166,12 @@
 </template>
 
 <script setup lang="ts">
-import { date } from "quasar";
 import { onMounted, ref, watch } from "vue";
 
 import { fetchFeatured } from "@/api/movies";
 import type { MovieWithSynopsis } from "@/api/resources/Movie";
 import AppIcon from "@/components/ui/AppIcon.vue";
+import { formatDay } from "@/utils/date";
 
 const movies = ref<MovieWithSynopsis[]>([]);
 const isLoading = ref(true);
@@ -209,10 +207,6 @@ const prevSlide = () => changeSlideTo(slide.value - 1);
 
 // Swipes change the slide through v-model, so restart the timer for those too
 watch(slide, () => cycle.value++);
-
-// extractDate parses the API's YYYY-MM-DD as a local date, so it can't shift a day in other timezones
-const formatWeek = (releaseDate: string) =>
-  date.formatDate(date.extractDate(releaseDate, "YYYY-MM-DD"), "D MMM");
 
 onMounted(fetchSlides);
 </script>
