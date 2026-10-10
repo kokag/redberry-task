@@ -99,7 +99,7 @@ import { useDialogPluginComponent, type QInput } from "quasar";
 import { computed, ref } from "vue";
 import AppIcon from "@/components/ui/AppIcon.vue";
 import AppModal from "@/components/ui/AppModal.vue";
-import useAuthStore from "@/stores/usaAuthStore";
+import useAuthStore from "@/stores/useAuthStore";
 import { emailRules, passes, passwordRules } from "@/utils/validation";
 import { useAuthDialog } from "@/components/auth/useAuthDialog";
 
@@ -118,6 +118,7 @@ const goToRegister = () => {
 
 const auth = useAuthStore();
 const loginForm = ref<loginCredentials>({ email: "", password: "" });
+const isSubmitting = ref(false);
 
 // Template refs, so the icons can read Quasar's `hasError`
 const emailInput = ref<QInput | null>(null);
@@ -130,7 +131,6 @@ const isValid = computed(
     passes(passwordRules, loginForm.value.password)
 );
 
-const isSubmitting = ref(false);
 const formError = ref("");
 
 const submit = async () => {
