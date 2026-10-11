@@ -38,3 +38,11 @@ export interface Movie {
 export interface MovieWithSynopsis extends Movie {
   synopsis: string;
 }
+
+// GET /movies/{slug}
+export interface MovieDetail extends MovieWithSynopsis {
+  director: string | null;
+  cast: string | null;
+  // Only the dates that have sessions
+  availableDates: string[];
+}
