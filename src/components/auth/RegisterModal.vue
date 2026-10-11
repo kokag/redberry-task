@@ -1,6 +1,6 @@
 <template>
   <q-dialog ref="dialogRef" @hide="onDialogHide">
-    <AppModal title="Sign up" subtitle="Welcome to Kino XII" style="width: 475px">
+    <AppModalCard title="Sign up" subtitle="Welcome to Kino XII" style="width: 475px">
       <form class="register" novalidate @submit.prevent="submit">
         <div class="register__fields">
 
@@ -173,7 +173,7 @@
           </p>
         </div>
       </form>
-    </AppModal>
+    </AppModalCard>
   </q-dialog>
 </template>
 
@@ -182,7 +182,7 @@ import { isAxiosError } from "axios";
 import { useDialogPluginComponent, type QFile, type QInput } from "quasar";
 import { computed, ref } from "vue";
 import AppIcon from "@/components/ui/AppIcon.vue";
-import AppModal from "@/components/ui/AppModal.vue";
+import AppModalCard from "@/components/ui/AppModalCard.vue";
 import useAuthStore, { type RegisterPayload } from "@/stores/useAuthStore";
 import { emailRules, passes, passwordRules, toFieldErrors, type Rule } from "@/utils/validation";
 import { useAuthDialog } from "@/components/auth/useAuthDialog";
