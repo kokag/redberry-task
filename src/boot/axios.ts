@@ -1,21 +1,15 @@
 import { defineBoot } from "#q-app";
-import axios, { type AxiosInstance } from 'axios';
+import axios from 'axios';
 
-import useAuthStore from '@/stores/usaAuthStore';
-
-declare module 'vue' {
-  interface ComponentCustomProperties {
-    $axios: AxiosInstance;
-    $api: AxiosInstance;
-  }
-}
+import useAuthStore from '@/stores/useAuthStore';
+import useFilterOptionsStore from '@/stores/useFilterOptionsStore';
 
 const api = axios.create({
   baseURL: 'https://api.kinoxii.redberryinternship.ge/api',
   headers: { Accept: 'application/json',},
 });
 
-export default defineBoot(async ({ app, store }) => {
+export default defineBoot(async ({ store }) => {
   const auth = useAuthStore(store);
 
   api.interceptors.request.use((config) => {
@@ -38,13 +32,13 @@ export default defineBoot(async ({ app, store }) => {
     },
   );
 
-  app.config.globalProperties.$axios = axios;
-  app.config.globalProperties.$api = api;
-
-  // Restore the session from a stored token; a stale one is dropped by the 401 handler above
-  if (auth.token) {
-    await auth.fetchMe().catch(() => undefined);
-  }
+  // Both run in parallel before the app renders:
+  // - filter options are fetched once and cached; a page that needs them calls load() again if this failed
+  // - the session is restored from a stored token; a stale one is dropped by the 401 handler above
+  await Promise.all([
+    useFilterOptionsStore(store).load().catch(() => undefined),
+    auth.token ? auth.fetchMe().catch(() => undefined) : undefined
+  ]);
 });
 
 export { api };
