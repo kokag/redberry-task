@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <div class="footer__row">
-      <router-link to="/" class="footer__logo" aria-label="Kino XII home">
+      <router-link :to="{name: 'home-page'}" class="footer__logo" aria-label="Kino XII home">
         KINO <span class="footer__logo-accent">XII</span>
       </router-link>
       <span class="footer__copyright">© 2026 Kino XII. All rights reserved.</span>
