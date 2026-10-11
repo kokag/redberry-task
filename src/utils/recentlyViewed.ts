@@ -22,6 +22,14 @@ export const getRecentlyViewed = (): ViewedMovie[] => {
   }
 };
 
+export const clearRecentlyViewed = () => {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    // Storage blocked: there was nothing saved anyway
+  }
+};
+
 // Newest first; viewing a film again moves it to the front instead of adding it twice
 export const addRecentlyViewed = (movie: Movie) => {
   const viewed: ViewedMovie = {

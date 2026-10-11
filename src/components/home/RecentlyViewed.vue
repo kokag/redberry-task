@@ -2,7 +2,10 @@
   <!-- Nothing at all until the user has opened a film page -->
   <template v-if="movies.length">
     <section class="recently-viewed">
-      <h2 class="recently-viewed__title">Recently viewed</h2>
+      <div class="recently-viewed__header">
+        <h2 class="recently-viewed__title">Recently viewed</h2>
+        <button type="button" class="recently-viewed__clear" @click="clear">Clear</button>
+      </div>
 
       <div class="recently-viewed__row">
         <router-link
@@ -27,10 +30,18 @@
 </template>
 
 <script setup lang="ts">
-import { getRecentlyViewed } from "@/utils/recentlyViewed";
+import { ref } from "vue";
+
+import { clearRecentlyViewed, getRecentlyViewed } from "@/utils/recentlyViewed";
 
 // Read once: the home page is created again every time the user comes back to it
-const movies = getRecentlyViewed();
+const movies = ref(getRecentlyViewed());
+
+// Empties the storage and the list, so the whole section (and its divider) disappears
+const clear = () => {
+  clearRecentlyViewed();
+  movies.value = [];
+};
 </script>
 
 <style scoped lang="scss">
@@ -40,11 +51,31 @@ const movies = getRecentlyViewed();
   color: $text-primary;
 }
 
+.recently-viewed__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
 .recently-viewed__title {
-  margin: 0 0 20px;
+  margin: 0;
   font-size: 24px;
   font-weight: 800;
   line-height: 1;
+}
+
+// Same look as Now Playing's "See all", but it's a <button> because it does an action, not navigation
+.recently-viewed__clear {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: $color-red;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
 }
 
 .recently-viewed__row {
