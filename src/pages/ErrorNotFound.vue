@@ -12,7 +12,7 @@
         color="white"
         text-color="blue"
         unelevated
-        to="/"
+        :to="{ name: 'home-page' }"
         label="Go Home"
         no-caps
       />
