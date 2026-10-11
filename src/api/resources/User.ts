@@ -1,3 +1,5 @@
+import type { Venue } from "@/api/resources/FilterOptions";
+
 export interface User {
   id: number;
   username: string;
@@ -7,6 +9,6 @@ export interface User {
   mobileNumber: string | null;
   dateOfBirth: string | null;
   age: number | null;
-  preferredVenue: Record<string, unknown> | null;
+  preferredVenue: Venue | null;
   profileComplete: boolean;
 }
