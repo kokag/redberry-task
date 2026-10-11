@@ -12,14 +12,37 @@
 // to match your app's branding.
 // Tip: Use the "Theme Builder" on Quasar's documentation website.
 
-$primary: #1976d2;
+// Design tokens from the Figma style guide
+$bg-page: #070c1c;
+$bg-card: #1e2031;
+$bg-raised: #2a2c3d;
+
+$text-primary: #ffffff;
+$text-secondary: #a9a9a9;
+$text-disabled: #505261;
+
+$color-red: #ec3013;
+$color-green: #4ade80;
+$color-orange: #e27e04;
+
+$tint-white: rgba($text-primary, 0.1);
+$tint-red: rgba($color-red, 0.1);
+$tint-green: rgba($color-green, 0.1);
+$tint-orange: rgba($color-orange, 0.1);
+
+// Modal backdrop: the fill of the overlay frame behind every Figma modal (blurred 10px)
+$overlay-scrim: rgba(#101010, 0.3);
+
+$typography-font-family: "Archivo", sans-serif;
+
+$primary: $color-red;
 $secondary: #26a69a;
 $accent: #9c27b0;
 
-$dark: #1d1d1d;
-$dark-page: #121212;
+$dark: $bg-card;
+$dark-page: $bg-page;
 
-$positive: #21ba45;
+$positive: $color-green;
 $negative: #c10015;
 $info: #31ccec;
-$warning: #f2c037;
+$warning: $color-orange;

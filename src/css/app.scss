@@ -1,1 +1,17 @@
 // app global css
+
+// Archivo weights used by the design: Regular, SemiBold, ExtraBold
+@import "@fontsource/archivo/400.css";
+@import "@fontsource/archivo/600.css";
+@import "@fontsource/archivo/800.css";
+
+// Page background from the design (Quasar runs in light mode, so $dark-page isn't applied)
+body {
+  background: $bg-page;
+}
+
+// Dimmed + blurred background behind every dialog
+.q-dialog__backdrop {
+  background: $overlay-scrim;
+  backdrop-filter: blur(10px);
+}
