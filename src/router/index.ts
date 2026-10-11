@@ -25,7 +25,9 @@ export default defineRouter((/* { store, ssrContext } */) => {
       : createWebHashHistory;
 
   const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+    // New pages (and new filters or page numbers) start at the top; Back/Forward return to where you were
+    scrollBehavior: (_to, _from, savedPosition) =>
+      savedPosition ?? { left: 0, top: 0 },
     routes,
 
     // Leave this as is and make changes in quasar.conf.js instead!
