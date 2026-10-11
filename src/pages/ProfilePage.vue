@@ -141,5 +141,11 @@ const upcomingCount = computed(() => orders.value?.filter(order => order.isUpcom
   .q-tab-panel {
     padding: 0;
   }
+
+  // During the slide, the leaving panel is squeezed to the new panel's height; Quasar's panels
+  // scroll by default, so a taller leaving panel flashed its own scrollbar. Clip it instead
+  :deep(.q-panel) {
+    overflow: hidden;
+  }
 }
 </style>
